@@ -6,8 +6,32 @@ graph TD
     C -- Non --> D(Initialiser Score = 0);
 
     D --> E(Vérification 1: Longueur);
-    E --> F(Vérification 2: Complexité / Entropie);
+    	si len_pass est supérieur ou égal à 20 ALORS
+        securité = très forte 
+        Score = Score + 4   # Très long = 4 points
+    sinon SI len_pass est supérieur ou égal à 16 ALORS 
+        securité = forte
+        Score = Score + 3   # Long = 3 points
+    sinon SI len_pass est supérieur ou égal à 12 ALORS 
+        securité = modérée
+        Score = Score + 2   # Modéré = 2 points
+    sinon SI len_pass est supérieur ou égal à 8 ALORS 
+        securité = faible
+        Score = Score + 1   # Faible = 1 point
+    sinon # Moins de 8
+        Score = Score + 0   # Très faible = 0 point
+    
+    
+    
+E --> F(Vérification 2: Complexité / Entropie);
 
+    # Points pour la présence de différents types de caractères (max 3 points)
+    SI Mot de passe contient des MINUSCULES ALORS Score = Score + 1
+    SI Mot de passe contient des MAJUSCULES ALORS Score = Score + 1
+    SI Mot de passe contient des SYMBOLES OU CHIFFRES ALORS Score = Score + 1
+
+F --> G(Vérification 3: Liste de Mots de Passe Fuités);
+# ...
     F --> G(Vérification 3: Liste de Mots de Passe Fuités);
     subgraph Vérification API (Ex: Pwned Passwords API)
         G --> G1(Hacher le Mot de Passe (SHA-1));
