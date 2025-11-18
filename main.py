@@ -57,6 +57,7 @@ def analyser_mot_de_passe():
     else:
         print("FAIBLE. A changer immédiatement")
 
+    print(f"\nScore final : {score_sec}/100")
 
     return password
 
